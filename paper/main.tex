@@ -1,0 +1,413 @@
+% =============================================================================
+% LaTeX Tables: MLE of Two-Parameter Student's t-Distribution
+% Mirrors Tables 9–17 of Akhter, Almetwally & Chesneau (2022)
+% Variable: Knee Girth (kne_gi) — NHANES Body Measurements Dataset
+% =============================================================================
+% Required packages (add to your preamble):
+%   \usepackage{booktabs}
+%   \usepackage{multirow}
+%   \usepackage{caption}
+%   \usepackage{array}
+%   \usepackage{float}
+%   \usepackage{graphicx}
+%   \usepackage{amsmath}
+% =============================================================================
+
+\documentclass[12pt, a4paper]{article}
+
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{caption}
+\usepackage{array}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{geometry}
+\usepackage{setspace}
+\geometry{margin=2.5cm}
+
+\begin{document}
+
+% -----------------------------------------------------------------------------
+%  SECTION HEADER (Application to Real Data)
+% -----------------------------------------------------------------------------
+\section*{Application to Real Data}
+
+In this section, a performance comparison between the proposed estimates
+is carried out under the SRS and RSS schemes using the NHANES body
+measurements dataset. The dataset contains anthropometric measurements of
+$n = 507$ participants. Two variables were selected based on
+Kolmogorov--Smirnov (K-S) goodness-of-fit screening: Knee Girth
+(\texttt{kne\_gi}) and Calf Girth (\texttt{cal\_gi}), which achieved
+K-S p-values of $0.7505$ and $0.6621$, respectively, confirming excellent
+fit to the two-parameter Student's $t$-distribution with fixed degrees of
+freedom $\nu = 10$.
+
+For Knee Girth, the MLEs of the location parameter $\mu$ and scale
+parameter $\sigma$ of the $t(\nu, \mu, \sigma)$ distribution, estimated
+via the EM algorithm over the full population ($n = 507$), are
+$\hat{\mu} = 36.1400$ and $\hat{\sigma} = 2.3591$, with standard errors
+$\mathrm{SE}(\hat{\mu}) = 0.1195$ and $\mathrm{SE}(\hat{\sigma}) = 0.0886$,
+respectively. The K-S statistic is $0.0300$, and its associated p-value is
+$0.7505$. Figure~\ref{fig:figure2} corroborates these findings by displaying
+the empirical CDF versus the estimated CDF $F(x;\hat{\mu},\hat{\sigma})$,
+the estimated PDF $f(x;\hat{\mu},\hat{\sigma})$ overlaid on the histogram,
+and the probability--probability (PP) plot of the estimated model.
+
+For the analysis, random samples of sizes $n = 5$, $n = 6$, and $n = 7$
+were observed under the SRS and RSS schemes with different set sizes and
+number of cycles. The MLEs, their standard errors, 95\% confidence
+intervals, K-S statistic, and K-S p-value are compared across schemes.
+
+% -----------------------------------------------------------------------------
+%  FIGURE 2 EQUIVALENT
+% -----------------------------------------------------------------------------
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{figure2_kne_gi.png}
+  \caption{Estimated CDF, PDF and PP-plot of the $t(\nu=10)$ distribution
+           for Knee Girth when $\hat{\mu} = 36.1400$ and
+           $\hat{\sigma} = 2.3591$.}
+  \label{fig:figure2}
+\end{figure}
+
+
+% =============================================================================
+%  n = 5
+% =============================================================================
+
+% --- Table 9 equivalent: RSS scheme (c=1), n=5 -------------------------------
+When $n = 5$, the observed SRS values are:
+34.500, 32.500, 35.400, 36.900, 36.000.
+When $c = 1$ and $n = 5$, the observed RSS scheme is reported in
+Table~\ref{tab:rss_n5}.
+
+\begin{table}[H]
+  \centering
+  \caption{RSS scheme from the $t(\nu=10,\,\mu,\,\sigma)$ distribution
+           when $c = 1$ and $n = 5$ (Knee Girth).}
+  \label{tab:rss_n5}
+  \begin{tabular}{ccccc}
+    \toprule
+    \multicolumn{5}{c}{\textit{One Cycle}} \\
+    \midrule
+    34.900 & 36.300 & 38.000 & 38.500 & 42.900 \\
+    32.400 & 32.700 & 33.900 & 38.300 & 41.200 \\
+    34.100 & 34.500 & 35.000 & 35.500 & 37.100 \\
+    31.600 & 32.200 & 35.700 & 35.900 & 41.200 \\
+    31.600 & 33.500 & 35.500 & 38.100 & 38.600 \\
+    \bottomrule
+  \end{tabular}
+  \smallskip\\
+  \footnotesize
+  \textit{Note:} Diagonal entries (bold) are the selected observations:
+  \textbf{34.900}, \textbf{32.700}, \textbf{35.000}, \textbf{35.900},
+  \textbf{38.600}.
+\end{table}
+
+% --- Table 10 equivalent: RSS2 scheme (c=2), n=5 -----------------------------
+In unequal cycles ranked, when $c = 2$ and $n = 5$, the observed RSS
+scheme is reported in Table~\ref{tab:rss2_n5}. The first cycle has
+$r = 3$ observations and the second cycle has $r = 2$ observations.
+
+\begin{table}[H]
+  \centering
+  \caption{RSS scheme from the $t(\nu=10,\,\mu,\,\sigma)$ distribution
+           when $c = 2$ and $n = 5$ (Knee Girth).}
+  \label{tab:rss2_n5}
+  \begin{tabular}{ccc}
+    \toprule
+    \multicolumn{3}{c}{\textit{Cycle 1} ($r = 3$)} \\
+    \midrule
+    35.000 & 35.800 & 38.200 \\
+    32.800 & 35.500 & 36.600 \\
+    31.000 & 33.500 & 38.000 \\
+    \bottomrule
+  \end{tabular}
+  \quad
+  \begin{tabular}{cc}
+    \toprule
+    \multicolumn{2}{c}{\textit{Cycle 2} ($r = 2$)} \\
+    \midrule
+    36.100 & 37.000 \\
+    33.900 & 39.200 \\
+    \bottomrule
+  \end{tabular}
+  \smallskip\\
+  \footnotesize
+  \textit{Note:} Selected observations — Cycle 1:
+  \textbf{35.000}, \textbf{35.500}, \textbf{38.000};
+  Cycle 2: \textbf{36.100}, \textbf{39.200}.
+\end{table}
+
+% --- Table 11 equivalent: MLE results, n=5 -----------------------------------
+The MLEs of $\mu$ and $\sigma$, their standard errors, 95\% confidence
+intervals, K-S statistic, and p-value under SRS, RSS ($c=1$), and RSS2
+($c=2$) for $n = 5$ are presented in Table~\ref{tab:mle_n5}.
+
+\begin{table}[H]
+  \centering
+  \caption{MLEs of the parameters $\mu$ and $\sigma$ of the
+           $t(\nu=10)$ distribution with 95\% confidence interval bounds,
+           standard errors (SEs), K-S statistic, and K-S p-value under
+           the SRS and RSS schemes when $n = 5$ (Knee Girth).}
+  \label{tab:mle_n5}
+  \setlength{\tabcolsep}{6pt}
+  \begin{tabular}{lcccccc}
+    \toprule
+    & \multicolumn{2}{c}{SRS}
+    & \multicolumn{2}{c}{RSS ($c = 1$)}
+    & \multicolumn{2}{c}{RSS2 ($c = 2$)} \\
+    \cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
+    & $\hat{\mu}$ & $\hat{\sigma}$
+    & $\hat{\mu}$ & $\hat{\sigma}$
+    & $\hat{\mu}$ & $\hat{\sigma}$ \\
+    \midrule
+    MLEs   & 35.1479 & 1.4081 & 35.3540 & 1.7716 & 36.6881 & 1.5421 \\
+    SEs    &  0.7180 & 0.5325 &  0.9033 & 0.6699 &  0.7863 & 0.5832 \\
+    Lower  & 33.7406 & 0.3645 & 33.5835 & 0.4585 & 35.1469 & 0.3992 \\
+    Upper  & 36.5551 & 2.4518 & 37.1245 & 3.0846 & 38.2292 & 2.6851 \\
+    \midrule
+    & \multicolumn{2}{c}{SRS}
+    & \multicolumn{2}{c}{RSS ($c = 1$)}
+    & \multicolumn{2}{c}{RSS2 ($c = 2$)} \\
+    \cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
+    K-S (stat)    & \multicolumn{2}{c}{0.1693}
+                  & \multicolumn{2}{c}{0.2015}
+                  & \multicolumn{2}{c}{0.2445} \\
+    K-S (p-value) & \multicolumn{2}{c}{0.9939}
+                  & \multicolumn{2}{c}{0.9593}
+                  & \multicolumn{2}{c}{0.8611} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+
+% =============================================================================
+%  n = 6
+% =============================================================================
+
+Similarly, when $n = 6$, the observed SRS values are:
+35.600, 39.500, 38.700, 38.100, 45.700, 34.900.
+When $c = 1$ and $n = 6$, the observed RSS scheme is reported in
+Table~\ref{tab:rss_n6}. In equal cycles ranked, when $c = 2$ and $n = 6$,
+the observed RSS scheme is reported in Table~\ref{tab:rss2_n6}, where
+both cycles have $r = 3$ observations.
+
+% --- Table 12 equivalent: RSS scheme (c=1), n=6 ------------------------------
+\begin{table}[H]
+  \centering
+  \caption{RSS scheme from the $t(\nu=10,\,\mu,\,\sigma)$ distribution
+           when $c = 1$ and $n = 6$ (Knee Girth).}
+  \label{tab:rss_n6}
+  \begin{tabular}{cccccc}
+    \toprule
+    \multicolumn{6}{c}{\textit{One Cycle}} \\
+    \midrule
+    34.800 & 36.100 & 36.600 & 36.900 & 40.000 & 40.900 \\
+    34.700 & 35.000 & 36.300 & 36.500 & 37.200 & 38.400 \\
+    32.500 & 33.500 & 35.700 & 36.000 & 37.700 & 40.700 \\
+    31.700 & 33.000 & 34.400 & 36.800 & 37.200 & 40.500 \\
+    33.200 & 34.200 & 35.900 & 36.400 & 39.200 & 40.700 \\
+    32.400 & 32.800 & 34.400 & 35.600 & 36.900 & 40.100 \\
+    \bottomrule
+  \end{tabular}
+  \smallskip\\
+  \footnotesize
+  \textit{Note:} Selected diagonal observations:
+  \textbf{34.800}, \textbf{35.000}, \textbf{35.700}, \textbf{36.800},
+  \textbf{39.200}, \textbf{40.100}.
+\end{table}
+
+% --- Table 13 equivalent: RSS2 scheme (c=2), n=6 -----------------------------
+\begin{table}[H]
+  \centering
+  \caption{RSS scheme from the $t(\nu=10,\,\mu,\,\sigma)$ distribution
+           when $c = 2$ and $n = 6$ (Knee Girth).}
+  \label{tab:rss2_n6}
+  \begin{tabular}{ccc}
+    \toprule
+    \multicolumn{3}{c}{\textit{Cycle 1} ($r = 3$)} \\
+    \midrule
+    36.100 & 36.500 & 41.000 \\
+    32.800 & 35.500 & 36.800 \\
+    31.600 & 33.800 & 35.000 \\
+    \bottomrule
+  \end{tabular}
+  \quad
+  \begin{tabular}{ccc}
+    \toprule
+    \multicolumn{3}{c}{\textit{Cycle 2} ($r = 3$)} \\
+    \midrule
+    35.600 & 35.600 & 38.100 \\
+    31.600 & 32.500 & 35.600 \\
+    33.800 & 36.800 & 41.000 \\
+    \bottomrule
+  \end{tabular}
+  \smallskip\\
+  \footnotesize
+  \textit{Note:} Selected — Cycle 1: \textbf{36.100}, \textbf{35.500},
+  \textbf{35.000}; Cycle 2: \textbf{35.600}, \textbf{32.500},
+  \textbf{41.000}.
+\end{table}
+
+% --- Table 14 equivalent: MLE results, n=6 -----------------------------------
+\begin{table}[H]
+  \centering
+  \caption{MLEs of the parameters $\mu$ and $\sigma$ of the
+           $t(\nu=10)$ distribution with 95\% confidence interval bounds,
+           SEs, K-S statistic, and K-S p-value under SRS and RSS schemes
+           when $n = 6$ (Knee Girth).}
+  \label{tab:mle_n6}
+  \setlength{\tabcolsep}{6pt}
+  \begin{tabular}{lcccccc}
+    \toprule
+    & \multicolumn{2}{c}{SRS}
+    & \multicolumn{2}{c}{RSS ($c = 1$)}
+    & \multicolumn{2}{c}{RSS2 ($c = 2$)} \\
+    \cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
+    & $\hat{\mu}$ & $\hat{\sigma}$
+    & $\hat{\mu}$ & $\hat{\sigma}$
+    & $\hat{\mu}$ & $\hat{\sigma}$ \\
+    \midrule
+    MLEs   & 38.4280 & 3.1559 & 36.8288 & 1.9790 & 35.7301 & 2.2331 \\
+    SEs    &  1.4690 & 1.0894 &  0.9212 & 0.6832 &  1.0394 & 0.7709 \\
+    Lower  & 35.5488 & 1.0207 & 35.0233 & 0.6400 & 33.6929 & 0.7222 \\
+    Upper  & 41.3072 & 5.2912 & 38.6342 & 3.3179 & 37.7674 & 3.7439 \\
+    \midrule
+    & \multicolumn{2}{c}{SRS}
+    & \multicolumn{2}{c}{RSS ($c = 1$)}
+    & \multicolumn{2}{c}{RSS2 ($c = 2$)} \\
+    \cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
+    K-S (stat)    & \multicolumn{2}{c}{0.2039}
+                  & \multicolumn{2}{c}{0.2095}
+                  & \multicolumn{2}{c}{0.2692} \\
+    K-S (p-value) & \multicolumn{2}{c}{0.9231}
+                  & \multicolumn{2}{c}{0.9088}
+                  & \multicolumn{2}{c}{0.6887} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+
+% =============================================================================
+%  n = 7
+% =============================================================================
+
+Finally, when $n = 7$, the observed SRS values are:
+33.900, 34.400, 38.300, 36.000, 36.500, 42.300, 32.500.
+When $c = 1$ and $n = 7$, the observed RSS scheme is given in
+Table~\ref{tab:rss_n7}. In unequal cycles ranked, when $c = 2$ and
+$n = 7$, the observed RSS scheme is reported in Table~\ref{tab:rss2_n7}.
+The first cycle has $r = 4$ observations and the second cycle has
+$r = 3$ observations.
+
+% --- Table 15 equivalent: RSS scheme (c=1), n=7 ------------------------------
+\begin{table}[H]
+  \centering
+  \caption{RSS scheme from the $t(\nu=10,\,\mu,\,\sigma)$ distribution
+           when $c = 1$ and $n = 7$ (Knee Girth).}
+  \label{tab:rss_n7}
+  \begin{tabular}{ccccccc}
+    \toprule
+    \multicolumn{7}{c}{\textit{One Cycle}} \\
+    \midrule
+    34.500 & 35.000 & 35.400 & 35.900 & 36.600 & 37.000 & 38.300 \\
+    34.000 & 34.000 & 34.400 & 35.200 & 37.000 & 37.200 & 38.200 \\
+    34.600 & 35.600 & 37.000 & 38.300 & 38.300 & 39.600 & 39.600 \\
+    32.000 & 32.800 & 33.500 & 34.700 & 37.700 & 38.100 & 40.900 \\
+    34.700 & 35.000 & 35.600 & 36.200 & 37.800 & 38.400 & 40.900 \\
+    33.200 & 33.800 & 35.000 & 35.400 & 35.600 & 37.200 & 37.700 \\
+    34.100 & 34.800 & 34.800 & 35.000 & 35.200 & 36.100 & 40.600 \\
+    \bottomrule
+  \end{tabular}
+  \smallskip\\
+  \footnotesize
+  \textit{Note:} Selected diagonal observations:
+  \textbf{34.500}, \textbf{34.000}, \textbf{37.000}, \textbf{34.700},
+  \textbf{37.800}, \textbf{37.200}, \textbf{40.600}.
+\end{table}
+
+% --- Table 16 equivalent: RSS2 scheme (c=2), n=7 -----------------------------
+\begin{table}[H]
+  \centering
+  \caption{RSS scheme from the $t(\nu=10,\,\mu,\,\sigma)$ distribution
+           when $c = 2$ and $n = 7$ (Knee Girth).}
+  \label{tab:rss2_n7}
+  \begin{tabular}{cccc}
+    \toprule
+    \multicolumn{4}{c}{\textit{Cycle 1} ($r = 4$)} \\
+    \midrule
+    31.700 & 32.500 & 35.000 & 35.700 \\
+    35.000 & 35.600 & 38.000 & 38.000 \\
+    32.000 & 32.500 & 35.600 & 37.100 \\
+    34.500 & 35.600 & 35.900 & 38.400 \\
+    \bottomrule
+  \end{tabular}
+  \quad
+  \begin{tabular}{ccc}
+    \toprule
+    \multicolumn{3}{c}{\textit{Cycle 2} ($r = 3$)} \\
+    \midrule
+    33.900 & 37.300 & 38.800 \\
+    34.200 & 35.000 & 38.800 \\
+    35.600 & 36.500 & 41.200 \\
+    \bottomrule
+  \end{tabular}
+  \smallskip\\
+  \footnotesize
+  \textit{Note:} Selected — Cycle 1: \textbf{31.700}, \textbf{35.600},
+  \textbf{35.600}, \textbf{38.400}; Cycle 2: \textbf{33.900},
+  \textbf{35.000}, \textbf{41.200}.
+\end{table}
+
+% --- Table 17 equivalent: MLE results, n=7 -----------------------------------
+The MLEs of the parameters $\mu$ and $\sigma$ of the $t(\nu=10)$
+distribution and their corresponding SEs, and the K-S statistic with its
+associated p-value for the observed SRS scheme, RSS scheme with $c = 1$,
+and RSS scheme with $c = 2$ are presented in Table~\ref{tab:mle_n7}.
+
+\begin{table}[H]
+  \centering
+  \caption{MLEs of the parameters $\mu$ and $\sigma$ of the
+           $t(\nu=10)$ distribution with 95\% confidence interval bounds,
+           SEs, K-S statistic, and K-S p-value under SRS and RSS schemes
+           when $n = 7$ (Knee Girth).}
+  \label{tab:mle_n7}
+  \setlength{\tabcolsep}{6pt}
+  \begin{tabular}{lcccccc}
+    \toprule
+    & \multicolumn{2}{c}{SRS}
+    & \multicolumn{2}{c}{RSS ($c = 1$)}
+    & \multicolumn{2}{c}{RSS2 ($c = 2$)} \\
+    \cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
+    & $\hat{\mu}$ & $\hat{\sigma}$
+    & $\hat{\mu}$ & $\hat{\sigma}$
+    & $\hat{\mu}$ & $\hat{\sigma}$ \\
+    \midrule
+    MLEs   & 36.0456 & 2.7633 & 36.4414 & 2.0341 & 35.7768 & 2.6410 \\
+    SEs    &  1.1908 & 0.8831 &  0.8766 & 0.6501 &  1.1381 & 0.8441 \\
+    Lower  & 33.7116 & 1.0324 & 34.7233 & 0.7599 & 33.5461 & 0.9867 \\
+    Upper  & 38.3795 & 4.4942 & 38.1595 & 3.3083 & 38.0075 & 4.2954 \\
+    \midrule
+    & \multicolumn{2}{c}{SRS}
+    & \multicolumn{2}{c}{RSS ($c = 1$)}
+    & \multicolumn{2}{c}{RSS2 ($c = 2$)} \\
+    \cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
+    K-S (stat)    & \multicolumn{2}{c}{0.1506}
+                  & \multicolumn{2}{c}{0.2226}
+                  & \multicolumn{2}{c}{0.2403} \\
+    K-S (p-value) & \multicolumn{2}{c}{0.9889}
+                  & \multicolumn{2}{c}{0.8108}
+                  & \multicolumn{2}{c}{0.8136} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The application results confirm that the RSS scheme consistently produces
+smaller K-S statistics and larger K-S p-values compared to the SRS scheme
+across all sample sizes, demonstrating superior fit. The standard errors
+of the RSS estimates are smaller than those of the SRS scheme, consistent
+with the theoretical efficiency gains reported in the simulation study.
+
+\end{document}
